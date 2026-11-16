@@ -27,7 +27,7 @@ export function splitByWeights(totalCents, entries) {
   const sum = weights.reduce((acc, weight) => acc + weight, 0);
   const exact = weights.map(weight => (totalCents * weight) / sum);
   const floors = exact.map(Math.floor);
-  let remainder = totalCents - floors.reduce((acc, value) => acc + value, 0);
+  const remainder = totalCents - floors.reduce((acc, value) => acc + value, 0);
   const order = exact.map((value, index) => ({ index, fraction: value - floors[index] }))
     .sort((a, b) => b.fraction - a.fraction || a.index - b.index);
   for (let i = 0; i < remainder; i += 1) floors[order[i].index] += 1;
@@ -89,12 +89,12 @@ export function validateLedger({ groups, expenses, settlements }) {
   const errors = [];
   const groupIds = new Set(groups.map(group => group.id));
   for (const expense of expenses) {
-    if (!groupIds.has(expense.groupId)) errors.push(\`Expense \${expense.id} references a missing group\`);
+    if (!groupIds.has(expense.groupId)) errors.push('Expense ' + expense.id + ' references a missing group');
     const shares = expense.shares.reduce((sum, share) => sum + toCents(share.amount), 0);
-    if (shares !== toCents(expense.amount)) errors.push(\`Expense \${expense.id} shares do not equal its total\`);
+    if (shares !== toCents(expense.amount)) errors.push('Expense ' + expense.id + ' shares do not equal its total');
   }
   for (const settlement of settlements) {
-    if (settlement.groupId !== 'all' && !groupIds.has(settlement.groupId)) errors.push(\`Settlement \${settlement.id} references a missing group\`);
+    if (settlement.groupId !== 'all' && !groupIds.has(settlement.groupId)) errors.push('Settlement ' + settlement.id + ' references a missing group');
   }
   const rows = calculateBalances({ groups, expenses, settlements });
   if (rows.reduce((sum, row) => sum + row.cents, 0) !== 0) errors.push('Ledger does not balance to zero');
