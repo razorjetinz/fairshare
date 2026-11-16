@@ -1,0 +1,13 @@
+{
+  "name": "fairshare",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "description": "A local-first shared expense tracker and debt simplifier.",
+  "scripts": {
+    "test": "node --test",
+    "serve": "python3 -m http.server 4173"
+  },
+  "engines": { "node": ">=20" },
+  "license": "MIT"
+}
