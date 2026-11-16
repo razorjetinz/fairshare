@@ -1,0 +1,12 @@
+{
+  "name": "FairShare — Shared Expenses",
+  "short_name": "FairShare",
+  "description": "Track group expenses and settle balances fairly.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f6fa",
+  "theme_color": "#111827",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
